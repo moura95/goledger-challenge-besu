@@ -15,3 +15,5 @@ besu/contracts/build/contracts
 
 .DS_Store
 tmp
+/.idea/modules.xml
+/.idea/goledger-challenge-besu.iml

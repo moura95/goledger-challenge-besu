@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  psql:
+    image: postgres:latest
+    container_name: besu-db
+    environment:
+      POSTGRES_DB: besu-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      psql:
+        condition: service_healthy
+    volumes:
+      - ./db:/db
+    entrypoint: [ "migrate" ]
+    command:
+      [
+        "-path", "scripts/db/migrations",
+        "-database", "postgres://postgres:postgres@psql:5432/besu-db?sslmode=disable",
+        "up"
+      ]
+
+#  api:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: besu-api
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      DB_SOURCE: postgres://postgres:postgres@psql:5432/besu-db?sslmode=disable
+#    depends_on:
+#      psql:
+#        condition: service_healthy
+#    entrypoint:
+#      [
+#        "./main"
+#      ]
+
+volumes:
+  db:
