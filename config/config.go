@@ -7,9 +7,10 @@ import (
 type Config struct {
 	DBSource          string `mapstructure:"DB_SOURCE"`
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
-	ContractAdress    string `mapstructure:"CONTRACT_ADDRESS"`
+	ContractAddress   string `mapstructure:"CONTRACT_ADDRESS"`
 	PrivateKey        string `mapstructure:"PRIVATE_KEY"`
-	BesuUrl           string `mapstructure:"BESU_URL"`
+	ABI               string `mapstructure:"ABI"`
+	NetworkUrl        string `mapstructure:"NETWORK_URL"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
