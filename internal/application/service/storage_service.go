@@ -6,6 +6,7 @@ import (
 	"github.com/moura95/goledger-challenge-besu/config"
 	"github.com/moura95/goledger-challenge-besu/internal/domain/entity"
 	"github.com/moura95/goledger-challenge-besu/internal/infrastructure/repository"
+	"github.com/moura95/goledger-challenge-besu/pkg/blockchainInteractor"
 	"go.uber.org/zap"
 )
 
@@ -33,14 +34,26 @@ func (s *StorageService) Set(value int32) (string, error) {
 		return "", fmt.Errorf("failed to validate storage value: %w", err)
 	}
 
-	err = s.repository.Set(storage)
+	interact, err := blockchainInteractor.NewBlockchainInteractor(
+		s.config.NetworkUrl,
+		s.config.ContractAddress,
+		s.config.PrivateKey,
+		s.config.ABI,
+	)
+	if err != nil {
+		s.logger.Error("Failed to create interact: ", err)
+		return "", fmt.Errorf("failed to create interact: %w", err)
+	}
+
+	defer interact.Close()
+
+	txHash, err := interact.SetValue(uint64(value))
 	if err != nil {
 		s.logger.Error("Failed to set storage value: ", err)
 		return "", fmt.Errorf("failed to set storage value: %w", err)
 	}
-	hash := ""
 
-	return hash, nil
+	return txHash, nil
 }
 
 func (s *StorageService) Get() (*entity.Storage, error) {

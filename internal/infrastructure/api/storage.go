@@ -30,9 +30,10 @@ func (s *StorageAPI) set(ctx *gin.Context) {
 	var req SetRequest
 	s.logger.Info("Set Storage Value")
 
-	if err := ctx.ShouldBindJSON(&req); err != nil {
-		s.logger.Error("Invalid request body: ", err)
-		ctx.JSON(http.StatusBadRequest, ginx.ErrorResponse("Invalid request body"))
+	err := ginx.ParseJSON(ctx, &req)
+	if err != nil {
+		s.logger.Error("Failed to parse request: ", err)
+		ctx.JSON(http.StatusBadRequest, ginx.ErrorResponse("Failed to parse request"))
 		return
 	}
 
