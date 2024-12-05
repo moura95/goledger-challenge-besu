@@ -23,7 +23,9 @@ func NewReceiverRouter(s *service.StorageService, log *zap.SugaredLogger) *Stora
 }
 
 func (r *StorageAPI) SetupContractRoute(routers *gin.RouterGroup) {
-	routers.GET("/contract", r.get)
-	routers.POST("/contract", r.set)
+	routers.GET("/get", r.get)
+	routers.POST("/set", r.set)
+	routers.POST("/check", r.get)
+	routers.POST("/sync", r.set)
 
 }

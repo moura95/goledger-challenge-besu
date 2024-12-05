@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "398d5044-8470-4ac8-a81b-73383af34ed6",
+		"name": "BesuApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9570837",
+		"_collection_link": "https://bold-robot-348630.postman.co/workspace/Midas~5d035be8-0ba7-4934-891c-b374aa9c481a/collection/9570837-398d5044-8470-4ac8-a81b-73383af34ed6?action=share&source=collection_link&creator=9570837"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/get",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/receiver/74c2afa1-f0f6-41fb-befb-3a18f71401b5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"receiver",
+								"74c2afa1-f0f6-41fb-befb-3a18f71401b5"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 08 Jun 2024 21:36:03 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "238"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"\",\n    \"data\": {\n        \"uuid\": \"74c2afa1-f0f6-41fb-befb-3a18f71401b5\",\n        \"name\": \"Ana Costa\",\n        \"cpf_cnpj\": \"55566671778\",\n        \"pix_key_type\": \"CNPJ\",\n        \"pix_key\": \"12345678000199\",\n        \"email\": \"ana.coosta@example.com\",\n        \"status\": \"Rascunho\"\n    },\n    \"pageInfo\": {\n        \"TotalRecords\": 0,\n        \"CurrentPage\": 0,\n        \"TotalPages\": 0,\n        \"Limit\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/check",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"check"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/receiver/74c2afa1-f0f6-41fb-befb-3a18f71401b5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"receiver",
+								"74c2afa1-f0f6-41fb-befb-3a18f71401b5"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 08 Jun 2024 21:36:03 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "238"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"\",\n    \"data\": {\n        \"uuid\": \"74c2afa1-f0f6-41fb-befb-3a18f71401b5\",\n        \"name\": \"Ana Costa\",\n        \"cpf_cnpj\": \"55566671778\",\n        \"pix_key_type\": \"CNPJ\",\n        \"pix_key\": \"12345678000199\",\n        \"email\": \"ana.coosta@example.com\",\n        \"status\": \"Rascunho\"\n    },\n    \"pageInfo\": {\n        \"TotalRecords\": 0,\n        \"CurrentPage\": 0,\n        \"TotalPages\": 0,\n        \"Limit\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Set",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/set",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"set"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create receiver",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Moura Almeida\",\n    \"cpf_cnpj\": \"02351132292\",\n    \"pix_key_type\": \"TELEFONE\",\n    \"pix_key\": \"+5511932389585\",\n    \"email\": \"jr1@hotmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/receiver",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"receiver"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 08 Jun 2024 14:00:28 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "48"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"\",\n    \"data\": \"Ok\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Sync",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/sync",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"sync"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create receiver",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Moura Almeida\",\n    \"cpf_cnpj\": \"02351132292\",\n    \"pix_key_type\": \"TELEFONE\",\n    \"pix_key\": \"+5511932389585\",\n    \"email\": \"jr1@hotmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/receiver",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"receiver"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 08 Jun 2024 14:00:28 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "48"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"\",\n    \"data\": \"Ok\"\n}"
+				}
+			]
+		}
+	]
+}
