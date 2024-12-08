@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/moura95/goledger-challenge-besu/config"
 	"github.com/moura95/goledger-challenge-besu/internal/domain/entity"
@@ -38,7 +39,6 @@ func (s *StorageService) Set(value int32) (string, error) {
 		s.config.NetworkUrl,
 		s.config.ContractAddress,
 		s.config.PrivateKey,
-		s.config.ABI,
 	)
 	if err != nil {
 		s.logger.Error("Failed to create interact: ", err)
@@ -57,14 +57,80 @@ func (s *StorageService) Set(value int32) (string, error) {
 }
 
 func (s *StorageService) Get() (*entity.Storage, error) {
-	storage, err := s.repository.Get()
+	interact, err := blockchainInteractor.NewBlockchainInteractor(
+		s.config.NetworkUrl,
+		s.config.ContractAddress,
+		s.config.PrivateKey,
+	)
 	if err != nil {
-		s.logger.Error("Failed to get storage value: ", err)
-		return nil, fmt.Errorf("failed to get storage value: %w", err)
+		s.logger.Error("Failed to create interact: ", err)
+		return nil, fmt.Errorf("failed to create interact: %w", err)
 	}
-	if storage == nil {
-		s.logger.Warn("Storage is empty")
-		return nil, fmt.Errorf("no storage data found")
+	value, err := interact.GetValue()
+	intValue, ok := value.(int32)
+	if !ok {
+		s.logger.Error("Value is not of type int32")
+		return nil, fmt.Errorf("value is not of type int32")
 	}
+
+	storage := entity.ToEntity(intValue, time.Now())
 	return storage, nil
+}
+
+func (s *StorageService) Check() (bool, error) {
+	interact, err := blockchainInteractor.NewBlockchainInteractor(
+		s.config.NetworkUrl,
+		s.config.ContractAddress,
+		s.config.PrivateKey,
+	)
+	if err != nil {
+		s.logger.Error("Failed to create interact: ", err)
+		return false, fmt.Errorf("failed to create interact: %w", err)
+	}
+	value, err := interact.GetValue()
+	intValue, ok := value.(int32)
+	if !ok {
+		s.logger.Error("Value is not of type int32")
+		return false, fmt.Errorf("value is not of type int32")
+	}
+	valueStorage, err := s.repository.Get()
+	if err != nil {
+		s.logger.Error("Failed to get storage: ", err)
+		return false, fmt.Errorf("failed to get storage: %w", err)
+	}
+	if !ok {
+		s.logger.Error("Value is not of type int32")
+		return false, fmt.Errorf("value is not of type int32")
+	}
+	if valueStorage.Value != intValue {
+		return false, nil
+	}
+
+	return true, nil
+}
+
+func (s *StorageService) Sync() (bool, error) {
+	interact, err := blockchainInteractor.NewBlockchainInteractor(
+		s.config.NetworkUrl,
+		s.config.ContractAddress,
+		s.config.PrivateKey,
+	)
+	if err != nil {
+		s.logger.Error("Failed to create interact: ", err)
+		return false, fmt.Errorf("failed to create interact: %w", err)
+	}
+	value, err := interact.GetValue()
+	intValue, ok := value.(int32)
+	if !ok {
+		s.logger.Error("Value is not of type int32")
+		return false, fmt.Errorf("value is not of type int32")
+	}
+
+	storage := entity.ToEntity(intValue, time.Now())
+	err = s.repository.Set(*storage)
+	if err != nil {
+		s.logger.Error("Failed to set storage: ", err)
+		return false, fmt.Errorf("failed to set storage: %w", err)
+	}
+	return true, nil
 }

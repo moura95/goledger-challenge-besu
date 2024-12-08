@@ -87,3 +87,57 @@ func (s *StorageAPI) get(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, ginx.SuccessResponse(response))
 }
+
+type CheckResponse struct {
+	Check bool `json:"check"`
+}
+
+// @Summary Check Value
+// @Description Get the current value of the storage
+// @Tags Storage
+// @Accept json
+// @Produce json
+// @Success 200 {object} GetResponse
+// @Failure 500 {object} object{error=string}
+// @Router /storage [get]
+func (s *StorageAPI) check(ctx *gin.Context) {
+	s.logger.Info("Check Storage Value")
+
+	check, err := s.service.Check()
+	if err != nil {
+		s.logger.Error("Failed to check storage: ", err)
+		ctx.JSON(http.StatusInternalServerError, ginx.ErrorResponse("Failed to check storage value"))
+		return
+	}
+
+	response := CheckResponse{
+		check,
+	}
+
+	ctx.JSON(http.StatusOK, ginx.SuccessResponse(response))
+}
+
+// @Summary Check Value
+// @Description Get the current value of the storage
+// @Tags Storage
+// @Accept json
+// @Produce json
+// @Success 200 {object} GetResponse
+// @Failure 500 {object} object{error=string}
+// @Router /storage [get]
+func (s *StorageAPI) sync(ctx *gin.Context) {
+	s.logger.Info("Sync Storage Value")
+
+	check, err := s.service.Sync()
+	if err != nil {
+		s.logger.Error("Failed to sync storage: ", err)
+		ctx.JSON(http.StatusInternalServerError, ginx.ErrorResponse("Failed to sync storage value"))
+		return
+	}
+
+	response := CheckResponse{
+		check,
+	}
+
+	ctx.JSON(http.StatusOK, ginx.SuccessResponse(response))
+}

@@ -9,7 +9,6 @@ type Config struct {
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
 	ContractAddress   string `mapstructure:"CONTRACT_ADDRESS"`
 	PrivateKey        string `mapstructure:"PRIVATE_KEY"`
-	ABI               string `mapstructure:"ABI"`
 	NetworkUrl        string `mapstructure:"NETWORK_URL"`
 }
 
